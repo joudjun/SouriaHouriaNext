@@ -1,65 +1,228 @@
-import Image from "next/image";
+import Link from "next/link";
+import Card from "@/components/Card";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+const articles = [
+    {
+        image: "https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=400&h=250&fit=crop",
+        category: "Analyse",
+        title: "Le retour des dimanches de Souria Houria : construire des ponts",
+        excerpt:
+            "Un regard approfondi sur les initiatives communautaires qui rapprochent les communautés syriennes en France.",
+        date: "28 Février 2026",
+    },
+    {
+        image: "https://images.unsplash.com/photo-1529070538774-1530d6923d0c?w=400&h=250&fit=crop",
+        category: "Culture",
+        title: "L'art contemporain syrien : une histoire de révolution visuelle",
+        excerpt:
+            "Comment les artistes syriens utilisent leur art comme outil de résistance et d'expression.",
+        date: "25 Février 2026",
+    },
+    {
+        image: "https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=400&h=250&fit=crop",
+        category: "Droits humains",
+        title: "Chronique de la révolte syrienne : des lieux et des hommes",
+        excerpt:
+            "Retour sur les lieux emblématiques de la révolution et les histoires des personnes qui les ont marqués.",
+        date: "20 Février 2026",
+    },
+    {
+        image: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=400&h=250&fit=crop",
+        category: "Société",
+        title: "L'intégration des réfugiés syriens : défis et réussites",
+        excerpt:
+            "Parcours de familles syriennes en France et les programmes qui facilitent leur intégration.",
+        date: "18 Février 2026",
+    },
+    {
+        image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=250&fit=crop",
+        category: "Éducation",
+        title: "Bourses Souria Houria : donner une chance à la jeunesse syrienne",
+        excerpt:
+            "Comment notre programme de bourses aide les étudiants syriens à accéder à l'enseignement supérieur.",
+        date: "14 Février 2026",
+    },
+    {
+        image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&h=250&fit=crop",
+        category: "Plaidoyer",
+        title: "Syrie au Conseil des droits de l'homme : bilan et perspectives",
+        excerpt:
+            "Analyse de la dernière session du Conseil des droits de l'homme sur la situation en Syrie.",
+        date: "10 Février 2026",
+    },
+];
+
+const events = [
+    {
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=250&fit=crop",
+        category: "Conférence",
+        title: "Construire des ponts pour l'avenir de la Syrie",
+        excerpt:
+            "Conférence sur les perspectives d'avenir et le rôle de la diaspora syrienne.",
+        dateBadge: { day: "12", month: "Mar" },
+        location: "📍 Paris, France",
+    },
+    {
+        image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=250&fit=crop",
+        category: "Festival",
+        title: "Festival Syrien N'est Fait #5",
+        excerpt:
+            "Cinq jours de musique, cinéma, théâtre et débats autour de la culture syrienne.",
+        dateBadge: { day: "25", month: "Avr" },
+        location: "📍 Paris, France",
+    },
+    {
+        image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=250&fit=crop",
+        category: "Table ronde",
+        title: "Droits humains et justice transitionnelle",
+        excerpt:
+            "Discussion avec des experts sur le processus de justice transitionnelle.",
+        dateBadge: { day: "08", month: "Mai" },
+        location: "📍 Lyon, France",
+    },
+];
+
+export default function HomePage() {
+    return (
+        <>
+            {/* Hero */}
+            <section
+                className="hero"
+                style={{
+                    backgroundImage:
+                        "url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=1440&h=480&fit=crop')",
+                }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+                <div className="hero-content">
+                    <h1>Toujours aux côtés du peuple syrien</h1>
+                    <p>
+                        Souria Houria œuvre pour la liberté, la dignité et les
+                        droits du peuple syrien depuis 2011.
+                    </p>
+                    <Link href="/articles" className="btn btn-white-outline">
+                        Découvrir nos actions
+                    </Link>
+                </div>
+                <div className="hero-dots">
+                    <button className="hero-dot active" />
+                    <button className="hero-dot" />
+                    <button className="hero-dot" />
+                    <button className="hero-dot" />
+                </div>
+            </section>
+
+            {/* Dernières publications */}
+            <section className="section">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Dernières publications</h2>
+                        <Link href="/articles" className="see-all">
+                            Voir tous les articles →
+                        </Link>
+                    </div>
+                    <div className="card-grid">
+                        {articles.map((a, i) => (
+                            <Card
+                                key={i}
+                                href="/articles/example"
+                                image={a.image}
+                                category={a.category}
+                                title={a.title}
+                                excerpt={a.excerpt}
+                                date={a.date}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Évènements */}
+            <section className="section section-alt">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Évènements à venir</h2>
+                        <Link href="/events" className="see-all">
+                            Voir tous les évènements →
+                        </Link>
+                    </div>
+                    <div className="card-grid">
+                        {events.map((e, i) => (
+                            <Card
+                                key={i}
+                                href="/events/example"
+                                image={e.image}
+                                category={e.category}
+                                title={e.title}
+                                excerpt={e.excerpt}
+                                date={e.location}
+                                dateBadge={e.dateBadge}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* About preview */}
+            <section className="section">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Qui sommes-nous</h2>
+                    </div>
+                    <p style={{ maxWidth: 720 }}>
+                        Souria Houria — «&nbsp;Syrie Liberté&nbsp;» — est une
+                        association française fondée en 2011 pour défendre les
+                        droits du peuple syrien, soutenir les réfugiés et
+                        promouvoir la culture syrienne. Nous sommes présents à
+                        Paris et dans plusieurs villes de France.
+                    </p>
+                    <Link
+                        href="/about"
+                        className="btn btn-outline"
+                        style={{ marginTop: "var(--space-5)" }}
+                    >
+                        En savoir plus
+                    </Link>
+                </div>
+            </section>
+
+            {/* CTA */}
+            <section className="cta-band">
+                <div className="container" style={{ textAlign: "center" }}>
+                    <h2>Soutenez notre action</h2>
+                    <p
+                        style={{
+                            maxWidth: 600,
+                            margin: "var(--space-3) auto var(--space-6)",
+                            opacity: 0.9,
+                        }}
+                    >
+                        Chaque don compte. Aidez-nous à poursuivre notre mission
+                        auprès du peuple syrien.
+                    </p>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "var(--space-4)",
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <Link href="#" className="btn btn-white-outline">
+                            Faire un don
+                        </Link>
+                        <Link
+                            href="/contact"
+                            className="btn"
+                            style={{
+                                background: "#fff",
+                                color: "var(--primary-500)",
+                            }}
+                        >
+                            Nous contacter
+                        </Link>
+                    </div>
+                </div>
+            </section>
+        </>
+    );
 }

@@ -1,0 +1,8 @@
+- Header
+- Footer
+- Homepage
+- Articles collection
+- Press Release
+- Media Gallery
+- Events
+- Categories
