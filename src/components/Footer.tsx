@@ -1,6 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useTheme } from "./ThemeProvider";
+import { localePath, t } from "@/libs/locale";
 
 export default function Footer() {
+    const { locale } = useTheme();
+
     return (
         <footer className="footer">
             <div className="container">
@@ -9,41 +15,71 @@ export default function Footer() {
                         <h3>Souria Houria</h3>
                         <ul>
                             <li>
-                                <Link href="/about">Qui sommes-nous ?</Link>
+                                <Link href={localePath(locale, "/about")}>
+                                    {t(locale, "about")}
+                                </Link>
                             </li>
                             <li>
-                                <Link href="#">Devenir membre</Link>
+                                <Link href="#">
+                                    {locale === "ar"
+                                        ? "كن عضواً"
+                                        : "Devenir membre"}
+                                </Link>
                             </li>
                             <li>
-                                <Link href="/contact">Contact</Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Aide aux réfugiés</h3>
-                        <ul>
-                            <li>
-                                <Link href="#">Adresses utiles</Link>
-                            </li>
-                            <li>
-                                <Link href="#">Cours de français</Link>
-                            </li>
-                            <li>
-                                <Link href="#">Aide juridique</Link>
+                                <Link href={localePath(locale, "/contact")}>
+                                    {t(locale, "contact")}
+                                </Link>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h3>Nos médias</h3>
+                        <h3>
+                            {locale === "ar"
+                                ? "مساعدة اللاجئين"
+                                : "Aide aux réfugiés"}
+                        </h3>
                         <ul>
                             <li>
-                                <Link href="/articles">Articles</Link>
+                                <Link href="#">
+                                    {locale === "ar"
+                                        ? "عناوين مفيدة"
+                                        : "Adresses utiles"}
+                                </Link>
                             </li>
                             <li>
-                                <Link href="/events">Évènements</Link>
+                                <Link href="#">
+                                    {locale === "ar"
+                                        ? "دروس فرنسية"
+                                        : "Cours de français"}
+                                </Link>
                             </li>
                             <li>
-                                <Link href="#">Vidéos</Link>
+                                <Link href="#">
+                                    {locale === "ar"
+                                        ? "مساعدة قانونية"
+                                        : "Aide juridique"}
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>{locale === "ar" ? "وسائطنا" : "Nos médias"}</h3>
+                        <ul>
+                            <li>
+                                <Link href={localePath(locale, "/articles")}>
+                                    {t(locale, "articles")}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={localePath(locale, "/events")}>
+                                    {t(locale, "events")}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#">
+                                    {locale === "ar" ? "فيديوهات" : "Vidéos"}
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -55,7 +91,9 @@ export default function Footer() {
                                 fontSize: "0.875rem",
                             }}
                         >
-                            Recevez nos dernières actualités.
+                            {locale === "ar"
+                                ? "احصل على آخر أخبارنا."
+                                : "Recevez nos dernières actualités."}
                         </p>
                         <form
                             className="newsletter-form"
@@ -69,8 +107,10 @@ export default function Footer() {
                 </div>
                 <div className="footer-bottom">
                     <p>
-                        © 2026 Souria Houria — Syrie Liberté. Tous droits
-                        réservés.
+                        © 2026 Souria Houria — Syrie Liberté.{" "}
+                        {locale === "ar"
+                            ? "جميع الحقوق محفوظة."
+                            : "Tous droits réservés."}
                     </p>
                     <div className="footer-social">
                         <Link href="#">f</Link>

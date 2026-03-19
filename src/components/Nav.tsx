@@ -4,28 +4,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
+import { localePath, t } from "@/libs/locale";
+import type { Locale } from "@/types";
 
-const NAV_FR = [
-    { href: "/", label: "Accueil" },
-    { href: "/articles", label: "Articles" },
-    { href: "/events", label: "Évènements" },
-    { href: "/about", label: "Qui sommes-nous" },
-    { href: "/contact", label: "Contact" },
-];
-
-const NAV_AR = [
-    { href: "/", label: "الرئيسية" },
-    { href: "/articles", label: "مقالات" },
-    { href: "/events", label: "فعاليات" },
-    { href: "/about", label: "من نحن" },
-    { href: "/contact", label: "اتصل بنا" },
-];
+function navItems(locale: Locale) {
+    return [
+        { href: localePath(locale, "/"), label: t(locale, "home") },
+        { href: localePath(locale, "/articles"), label: t(locale, "articles") },
+        { href: localePath(locale, "/events"), label: t(locale, "events") },
+        { href: localePath(locale, "/about"), label: t(locale, "about") },
+        { href: localePath(locale, "/contact"), label: t(locale, "contact") },
+    ];
+}
 
 export default function Nav() {
     const pathname = usePathname();
-    const { lang } = useTheme();
+    const { locale } = useTheme();
     const [open, setOpen] = useState(false);
-    const items = lang === "ar" ? NAV_AR : NAV_FR;
+    const items = navItems(locale);
 
     useEffect(() => {
         setOpen(false);
@@ -40,7 +36,8 @@ export default function Nav() {
     }, []);
 
     function isActive(href: string) {
-        if (href === "/") return pathname === "/";
+        const localeHome = localePath(locale, "/");
+        if (href === localeHome) return pathname === localeHome;
         return pathname.startsWith(href);
     }
 

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, Noto_Sans_Arabic, Noto_Naskh_Arabic } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import Header from "@/components/Header";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import type { Locale } from "@/types";
+import { localeDir } from "@/libs/locale";
 
 const inter = Inter({
     variable: "--font-inter",
@@ -30,22 +29,27 @@ export const metadata: Metadata = {
         "Souria Houria œuvre pour la liberté, la dignité et les droits du peuple syrien.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const h = await headers();
+    const locale = (h.get("x-locale") || "fr") as Locale;
+
     return (
-        <html lang="fr" dir="ltr" data-theme="light" suppressHydrationWarning>
+        <html lang={locale} dir={localeDir(locale)} suppressHydrationWarning>
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `(function(){try{var t=localStorage.getItem("sh-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);else document.documentElement.setAttribute("data-theme","light")}catch(e){document.documentElement.setAttribute("data-theme","light")}})()`,
+                    }}
+                />
+            </head>
             <body
                 className={`${inter.variable} ${notoSansArabic.variable} ${notoNaskhArabic.variable}`}
             >
-                <ThemeProvider>
-                    <Header />
-                    <Nav />
-                    <main>{children}</main>
-                    <Footer />
-                </ThemeProvider>
+                {children}
             </body>
         </html>
     );

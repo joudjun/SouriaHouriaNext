@@ -1,29 +1,45 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "./ThemeProvider";
+import { alternateLocale, localePath, t } from "@/libs/locale";
 
 export default function Header() {
-    const { theme, lang, toggleTheme, toggleLang } = useTheme();
+    const { theme, locale, toggleTheme, switchLocale } = useTheme();
 
     return (
         <header className="header">
             <div className="container">
-                <Link href="/" className="header-logo-text">
-                    Souria Houria
+                <Link
+                    href={localePath(locale, "/")}
+                    className="header-logo"
+                >
+                    <Image
+                        src="/SouriaHouria.svg"
+                        alt="Souria Houria"
+                        width={160}
+                        height={40}
+                        priority
+                    />
                 </Link>
                 <div className="header-actions">
-                    <button className="toggle-btn" onClick={toggleLang}>
+                    <button className="toggle-btn" onClick={switchLocale}>
                         <span className="icon">🌐</span>{" "}
-                        <span>{lang === "fr" ? "FR" : "عر"}</span>
+                        <span>
+                            {alternateLocale(locale) === "ar" ? "عربي" : "FR"}
+                        </span>
                     </button>
                     <button className="toggle-btn" onClick={toggleTheme}>
                         <span className="icon">
                             {theme === "light" ? "☀️" : "🌙"}
                         </span>
                     </button>
-                    <Link href="#" className="btn btn-white-outline btn-sm">
-                        {lang === "ar" ? "تبرع" : "Faire un don"}
+                    <Link
+                        href={localePath(locale, "/contact")}
+                        className="btn btn-white-outline btn-sm"
+                    >
+                        {t(locale, "donate")}
                     </Link>
                 </div>
             </div>
