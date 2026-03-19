@@ -14,15 +14,11 @@ const nextConfig: NextConfig = {
                 hostname: "46.224.225.63",
                 port: "1337",
             },
-        ],
-    },
-    async rewrites() {
-        return [
             {
-                source: "/uploads/:path*",
-                destination: `${process.env.STRAPI_URL}/uploads/:path*`,
+                protocol: "https",
+                hostname: "sh-cms.ixiox.com",
             },
-        ];
+        ],
     },
 };
 
