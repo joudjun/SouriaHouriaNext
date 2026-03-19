@@ -16,6 +16,14 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+    async rewrites() {
+        return [
+            {
+                source: "/uploads/:path*",
+                destination: `${process.env.STRAPI_URL}/uploads/:path*`,
+            },
+        ];
+    },
 };
 
 export default nextConfig;

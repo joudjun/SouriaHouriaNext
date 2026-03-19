@@ -11,10 +11,7 @@ export default function Header() {
     return (
         <header className="header">
             <div className="container">
-                <Link
-                    href={localePath(locale, "/")}
-                    className="header-logo"
-                >
+                <Link href={localePath(locale, "/")} className="header-logo">
                     <Image
                         src="/SouriaHouria.svg"
                         alt="Souria Houria"
@@ -22,7 +19,9 @@ export default function Header() {
                         height={40}
                         priority
                     />
-                    <span className="header-logo-text">{locale === "ar" ? "سورية حرية" : "Souria Houria"}</span>
+                    <span className="header-logo-text">
+                        {locale === "ar" ? "سورية حرية" : "Souria Houria"}
+                    </span>
                 </Link>
                 <div className="header-actions">
                     <button className="toggle-btn" onClick={switchLocale}>

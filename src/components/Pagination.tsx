@@ -10,7 +10,10 @@ interface PaginationProps {
 }
 
 /** Build a compact page range: 1 … 4 5 [6] 7 8 … 20 */
-function getPageRange(page: number, pageCount: number): (number | "ellipsis")[] {
+function getPageRange(
+    page: number,
+    pageCount: number,
+): (number | "ellipsis")[] {
     const siblings = 1;
     const items: (number | "ellipsis")[] = [];
 
@@ -30,7 +33,12 @@ function getPageRange(page: number, pageCount: number): (number | "ellipsis")[] 
     return items;
 }
 
-export default function Pagination({ page, pageCount, locale, buildHref }: PaginationProps) {
+export default function Pagination({
+    page,
+    pageCount,
+    locale,
+    buildHref,
+}: PaginationProps) {
     if (pageCount <= 1) return null;
 
     const pages = getPageRange(page, pageCount);
@@ -44,7 +52,12 @@ export default function Pagination({ page, pageCount, locale, buildHref }: Pagin
             )}
             {pages.map((item, idx) =>
                 item === "ellipsis" ? (
-                    <span key={`ellipsis-${idx}`} className="pagination-ellipsis">…</span>
+                    <span
+                        key={`ellipsis-${idx}`}
+                        className="pagination-ellipsis"
+                    >
+                        …
+                    </span>
                 ) : (
                     <Link
                         key={item}
