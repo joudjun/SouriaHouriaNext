@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Pagination from "@/components/Pagination";
 import { getEvents } from "@/libs/strapi";
 import { getImageUrl } from "@/libs/image";
 import { htmlExcerpt, localePath, t } from "@/libs/locale";
@@ -127,51 +128,19 @@ export default async function EventsPage({ params, searchParams }: Props) {
                 )}
 
                 {pagination.pageCount > 1 && (
-                    <div className="pagination">
-                        {page > 1 && (
-                            <Link
-                                href={buildHref({
-                                    page: String(page - 1),
-                                    ...(upcoming !== undefined
-                                        ? { upcoming: upcoming ? "1" : "0" }
-                                        : {}),
-                                })}
-                                className="prev"
-                            >
-                                {t(loc, "prev")}
-                            </Link>
-                        )}
-                        {Array.from(
-                            { length: pagination.pageCount },
-                            (_, i) => i + 1,
-                        ).map((p) => (
-                            <Link
-                                key={p}
-                                href={buildHref({
-                                    page: String(p),
-                                    ...(upcoming !== undefined
-                                        ? { upcoming: upcoming ? "1" : "0" }
-                                        : {}),
-                                })}
-                                className={p === page ? "active" : ""}
-                            >
-                                {p}
-                            </Link>
-                        ))}
-                        {page < pagination.pageCount && (
-                            <Link
-                                href={buildHref({
-                                    page: String(page + 1),
-                                    ...(upcoming !== undefined
-                                        ? { upcoming: upcoming ? "1" : "0" }
-                                        : {}),
-                                })}
-                                className="next"
-                            >
-                                {t(loc, "next")}
-                            </Link>
-                        )}
-                    </div>
+                    <Pagination
+                        page={page}
+                        pageCount={pagination.pageCount}
+                        locale={loc}
+                        buildHref={(p) =>
+                            buildHref({
+                                page: String(p),
+                                ...(upcoming !== undefined
+                                    ? { upcoming: upcoming ? "1" : "0" }
+                                    : {}),
+                            })
+                        }
+                    />
                 )}
             </div>
         </section>

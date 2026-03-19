@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Pagination from "@/components/Pagination";
 import { getArticles, getCategories } from "@/libs/strapi";
 import { getImageUrl } from "@/libs/image";
 import { formatDate, htmlExcerpt, localePath, t } from "@/libs/locale";
@@ -105,45 +106,17 @@ export default async function ArticlesPage({ params, searchParams }: Props) {
                 )}
 
                 {pagination.pageCount > 1 && (
-                    <div className="pagination">
-                        {page > 1 && (
-                            <Link
-                                href={localePath(
-                                    loc,
-                                    `/articles?page=${page - 1}${categorySlug ? `&category=${categorySlug}` : ""}`,
-                                )}
-                                className="prev"
-                            >
-                                {t(loc, "prev")}
-                            </Link>
-                        )}
-                        {Array.from(
-                            { length: pagination.pageCount },
-                            (_, i) => i + 1,
-                        ).map((p) => (
-                            <Link
-                                key={p}
-                                href={localePath(
-                                    loc,
-                                    `/articles?page=${p}${categorySlug ? `&category=${categorySlug}` : ""}`,
-                                )}
-                                className={p === page ? "active" : ""}
-                            >
-                                {p}
-                            </Link>
-                        ))}
-                        {page < pagination.pageCount && (
-                            <Link
-                                href={localePath(
-                                    loc,
-                                    `/articles?page=${page + 1}${categorySlug ? `&category=${categorySlug}` : ""}`,
-                                )}
-                                className="next"
-                            >
-                                {t(loc, "next")}
-                            </Link>
-                        )}
-                    </div>
+                    <Pagination
+                        page={page}
+                        pageCount={pagination.pageCount}
+                        locale={loc}
+                        buildHref={(p) =>
+                            localePath(
+                                loc,
+                                `/articles?page=${p}${categorySlug ? `&category=${categorySlug}` : ""}`,
+                            )
+                        }
+                    />
                 )}
             </div>
         </section>

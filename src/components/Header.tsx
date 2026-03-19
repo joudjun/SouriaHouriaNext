@@ -22,6 +22,7 @@ export default function Header() {
                         height={40}
                         priority
                     />
+                    <span className="header-logo-text">{locale === "ar" ? "سورية حرية" : "Souria Houria"}</span>
                 </Link>
                 <div className="header-actions">
                     <button className="toggle-btn" onClick={switchLocale}>
