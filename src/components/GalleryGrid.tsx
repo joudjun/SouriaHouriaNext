@@ -19,9 +19,7 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
                 );
             if (e.key === "ArrowLeft")
                 setLightboxIndex((i) =>
-                    i !== null
-                        ? (i - 1 + images.length) % images.length
-                        : null,
+                    i !== null ? (i - 1 + images.length) % images.length : null,
                 );
         };
         document.addEventListener("keydown", handleKey);
@@ -37,7 +35,8 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+                    gridTemplateColumns:
+                        "repeat(auto-fill, minmax(240px, 1fr))",
                     gap: "var(--space-4)",
                 }}
             >

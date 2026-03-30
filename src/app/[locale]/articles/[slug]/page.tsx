@@ -4,6 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { getArticleBySlug, articleExistsInLocale } from "@/libs/strapi";
 import { getImageUrl, getImageAlt, processContent } from "@/libs/image";
 import { formatDate, localePath, t, defaultLocale } from "@/libs/locale";
+import ShareButtons from "@/components/ShareButtons";
 import type { Locale } from "@/types";
 
 export const revalidate = 300;
@@ -125,6 +126,8 @@ export default async function ArticlePage({ params }: Props) {
                         __html: processContent(article.content),
                     }}
                 />
+
+                <ShareButtons title={article.title} label={t(loc, "share")} />
             </div>
         </article>
     );

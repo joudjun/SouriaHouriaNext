@@ -7,9 +7,11 @@ export async function GET(req: NextRequest) {
     const locale = (req.nextUrl.searchParams.get("locale") ?? "fr") as Locale;
 
     if (q.length < 2) {
-        return NextResponse.json(
-            { articles: [], events: [], pressReleases: [] },
-        );
+        return NextResponse.json({
+            articles: [],
+            events: [],
+            pressReleases: [],
+        });
     }
 
     const results = await searchContent(q, locale, 5);

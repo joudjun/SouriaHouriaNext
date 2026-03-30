@@ -72,10 +72,9 @@ export default function SearchBox() {
             setLoading(true);
             const controller = new AbortController();
             abortRef.current = controller;
-            fetch(
-                `/api/search?q=${encodeURIComponent(q)}&locale=${locale}`,
-                { signal: controller.signal },
-            )
+            fetch(`/api/search?q=${encodeURIComponent(q)}&locale=${locale}`, {
+                signal: controller.signal,
+            })
                 .then((r) => r.json())
                 .then((data: Results) => {
                     setResults(data);
@@ -108,7 +107,19 @@ export default function SearchBox() {
                     onClick={() => setOpen(true)}
                     aria-label={t(locale, "search")}
                 >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
                 </button>
             ) : (
                 <div className="search-input-wrapper">

@@ -1493,3 +1493,31 @@ p { margin-bottom: var(--space-6); color: var(--text-secondary); }
     to   { width: 140px; opacity: 1; }
   }
 }
+
+/* ── Share Buttons ── */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--bg-surface-alt);
+  color: var(--text-secondary);
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.share-btn:hover {
+  background: var(--share-color, var(--primary));
+  color: #fff;
+  transform: scale(1.1);
+}
+[dir="rtl"] .share-buttons {
+  flex-direction: row-reverse;
+}

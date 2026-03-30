@@ -18,10 +18,11 @@ export async function generateMetadata({
     const { locale } = await params;
     const sp = await searchParams;
     const q = sp.q ?? "";
-    const label =
-        locale === "ar" ? "نتائج البحث" : "Résultats de recherche";
+    const label = locale === "ar" ? "نتائج البحث" : "Résultats de recherche";
     return {
-        title: q ? `${label}: ${q} — Souria Houria` : `${label} — Souria Houria`,
+        title: q
+            ? `${label}: ${q} — Souria Houria`
+            : `${label} — Souria Houria`,
     };
 }
 
@@ -59,7 +60,12 @@ export default async function SearchPage({ params, searchParams }: Props) {
                 <h1 className="mb-6">
                     {t(loc, "searchResults")}
                     {q && (
-                        <span style={{ fontWeight: 400, color: "var(--neutral-400)" }}>
+                        <span
+                            style={{
+                                fontWeight: 400,
+                                color: "var(--neutral-400)",
+                            }}
+                        >
                             {" "}
                             — &ldquo;{q}&rdquo;
                         </span>

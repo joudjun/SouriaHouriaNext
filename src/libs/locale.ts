@@ -82,6 +82,7 @@ const translations = {
         searchResults: "Résultats de recherche",
         noResults: "Aucun résultat trouvé.",
         seeAllResults: "Voir tous les résultats →",
+        share: "Partager",
     },
     ar: {
         home: "الرئيسية",
@@ -117,6 +118,7 @@ const translations = {
         searchResults: "نتائج البحث",
         noResults: "لم يتم العثور على نتائج.",
         seeAllResults: "عرض جميع النتائج ←",
+        share: "مشاركة",
     },
 } as const;
 

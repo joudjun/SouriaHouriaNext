@@ -7,6 +7,7 @@ import {
 } from "@/libs/strapi";
 import { getImageUrl, getImageAlt, processContent } from "@/libs/image";
 import { formatDate, localePath, t, defaultLocale } from "@/libs/locale";
+import ShareButtons from "@/components/ShareButtons";
 import type { Locale } from "@/types";
 
 export const revalidate = 300;
@@ -60,9 +61,7 @@ export default async function PressReleasePage({ params }: Props) {
                     ]}
                 />
 
-                <span className="card-category">
-                    {t(loc, "pressReleases")}
-                </span>
+                <span className="card-category">{t(loc, "pressReleases")}</span>
 
                 <h1>{pr.title}</h1>
 
@@ -102,6 +101,8 @@ export default async function PressReleasePage({ params }: Props) {
                         __html: processContent(pr.content),
                     }}
                 />
+
+                <ShareButtons title={pr.title} label={t(loc, "share")} />
             </div>
         </article>
     );

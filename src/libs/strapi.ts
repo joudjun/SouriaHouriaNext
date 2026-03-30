@@ -183,7 +183,10 @@ export async function getPressReleases(
     return data;
 }
 
-export async function getPressReleaseBySlug(slug: string, locale: Locale = "fr") {
+export async function getPressReleaseBySlug(
+    slug: string,
+    locale: Locale = "fr",
+) {
     const decoded = decodeURIComponent(slug);
     const { data } = await api.get<StrapiResponse<StrapiPressRelease[]>>(
         "/press-releases",

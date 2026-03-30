@@ -71,8 +71,7 @@ export default async function GalleriesPage({ params, searchParams }: Props) {
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "center",
-                                            background:
-                                                "rgba(0,0,0,0.3)",
+                                            background: "rgba(0,0,0,0.3)",
                                         }}
                                     >
                                         <span
@@ -85,23 +84,25 @@ export default async function GalleriesPage({ params, searchParams }: Props) {
                                         </span>
                                     </div>
                                 )}
-                                {g.type === "gallery" && g.images?.length > 0 && (
-                                    <div
-                                        style={{
-                                            position: "absolute",
-                                            bottom: "var(--space-2)",
-                                            right: "var(--space-2)",
-                                            background: "rgba(0,0,0,0.6)",
-                                            color: "#fff",
-                                            padding: "2px 8px",
-                                            borderRadius: "var(--radius-sm)",
-                                            fontSize: "0.8rem",
-                                        }}
-                                    >
-                                        {g.images.length}{" "}
-                                        {loc === "ar" ? "صور" : "photos"}
-                                    </div>
-                                )}
+                                {g.type === "gallery" &&
+                                    g.images?.length > 0 && (
+                                        <div
+                                            style={{
+                                                position: "absolute",
+                                                bottom: "var(--space-2)",
+                                                right: "var(--space-2)",
+                                                background: "rgba(0,0,0,0.6)",
+                                                color: "#fff",
+                                                padding: "2px 8px",
+                                                borderRadius:
+                                                    "var(--radius-sm)",
+                                                fontSize: "0.8rem",
+                                            }}
+                                        >
+                                            {g.images.length}{" "}
+                                            {loc === "ar" ? "صور" : "photos"}
+                                        </div>
+                                    )}
                             </div>
                             <div className="card-body">
                                 <span className="card-category">

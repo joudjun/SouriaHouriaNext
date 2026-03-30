@@ -47,7 +47,9 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={localePath(locale, "/press-releases")}>
+                                <Link
+                                    href={localePath(locale, "/press-releases")}
+                                >
                                     {t(locale, "pressReleases")}
                                 </Link>
                             </li>

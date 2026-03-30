@@ -57,10 +57,7 @@ export default async function PressReleasesPage({
                     {releases.map((pr) => (
                         <Card
                             key={pr.id}
-                            href={localePath(
-                                loc,
-                                `/press-releases/${pr.slug}`,
-                            )}
+                            href={localePath(loc, `/press-releases/${pr.slug}`)}
                             image={getImageUrl(pr.featuredImage, pr.content)}
                             category={t(loc, "pressReleases")}
                             title={pr.title}

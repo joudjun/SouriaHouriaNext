@@ -13,17 +13,19 @@ import { usePathname, useRouter } from "next/navigation";
 import type { Locale } from "@/types";
 import { alternateLocale, localeDir } from "@/libs/locale";
 
-type Theme = "light" | "dark";
+type Theme = "light" | "dark" | "system";
 
 interface ThemeContextType {
     theme: Theme;
+    resolvedTheme: "light" | "dark";
     locale: Locale;
     toggleTheme: () => void;
     switchLocale: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-    theme: "light",
+    theme: "system",
+    resolvedTheme: "light",
     locale: "fr",
     toggleTheme: () => {},
     switchLocale: () => {},
@@ -44,7 +46,13 @@ export function ThemeProvider({
     const [theme, setTheme] = useState<Theme>(() => {
         if (typeof window !== "undefined") {
             const saved = localStorage.getItem("sh-theme") as Theme | null;
-            if (saved === "dark" || saved === "light") return saved;
+            if (saved === "dark" || saved === "light" || saved === "system") return saved;
+        }
+        return "system";
+    });
+    const [systemPref, setSystemPref] = useState<"light" | "dark">(() => {
+        if (typeof window !== "undefined") {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
         return "light";
     });
@@ -53,6 +61,15 @@ export function ThemeProvider({
     const isFirstRender = useRef(true);
 
     const locale: Locale = initialLocale;
+    const resolvedTheme: "light" | "dark" = theme === "system" ? systemPref : theme;
+
+    // Listen for OS theme changes
+    useEffect(() => {
+        const mq = window.matchMedia("(prefers-color-scheme: dark)");
+        const handler = (e: MediaQueryListEvent) => setSystemPref(e.matches ? "dark" : "light");
+        mq.addEventListener("change", handler);
+        return () => mq.removeEventListener("change", handler);
+    }, []);
 
     // On mount (including hydration), sync state from localStorage
     // without writing data-theme (blocking script in <head> handles that)
@@ -69,9 +86,9 @@ export function ThemeProvider({
     // render (blocking <script> in <head> already set it correctly)
     useEffect(() => {
         if (isFirstRender.current) return;
-        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.setAttribute("data-theme", resolvedTheme);
         localStorage.setItem("sh-theme", theme);
-    }, [theme]);
+    }, [theme, resolvedTheme]);
 
     // Keep <html> lang/dir in sync on client-side locale switches
     useEffect(() => {
@@ -80,7 +97,11 @@ export function ThemeProvider({
     }, [locale]);
 
     const toggleTheme = useCallback(() => {
-        setTheme((t) => (t === "light" ? "dark" : "light"));
+        setTheme((t) => {
+            if (t === "light") return "dark";
+            if (t === "dark") return "system";
+            return "light";
+        });
     }, []);
 
     const switchLocale = useCallback(() => {
@@ -91,7 +112,7 @@ export function ThemeProvider({
 
     return (
         <ThemeContext.Provider
-            value={{ theme, locale, toggleTheme, switchLocale }}
+            value={{ theme, resolvedTheme, locale, toggleTheme, switchLocale }}
         >
             {children}
         </ThemeContext.Provider>

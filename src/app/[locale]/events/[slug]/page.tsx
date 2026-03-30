@@ -4,6 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { getEventBySlug, eventExistsInLocale } from "@/libs/strapi";
 import { getImageUrl, getImageAlt, processContent } from "@/libs/image";
 import { formatDate, localePath, t, defaultLocale } from "@/libs/locale";
+import ShareButtons from "@/components/ShareButtons";
 import type { Locale } from "@/types";
 
 export const revalidate = 300;
@@ -131,6 +132,8 @@ export default async function EventPage({ params }: Props) {
                         __html: processContent(event.content),
                     }}
                 />
+
+                <ShareButtons title={event.title} label={t(loc, "share")} />
             </div>
         </article>
     );

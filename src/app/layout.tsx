@@ -42,7 +42,7 @@ export default async function RootLayout({
             <head>
                 <script
                     dangerouslySetInnerHTML={{
-                        __html: `(function(){try{var t=localStorage.getItem("sh-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);else document.documentElement.setAttribute("data-theme","light")}catch(e){document.documentElement.setAttribute("data-theme","light")}})()`,
+                        __html: `(function(){try{var t=localStorage.getItem("sh-theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t)}else{var d=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",d)}}catch(e){document.documentElement.setAttribute("data-theme","light")}})()`,
                     }}
                 />
             </head>
