@@ -33,14 +33,10 @@ export function proxy(request: NextRequest) {
             );
         }
 
-        // Fall back to Accept-Language detection, then default
-        const acceptLang = request.headers.get("accept-language") ?? "";
-        const detected = acceptLang.toLowerCase().includes("ar")
-            ? "ar"
-            : DEFAULT_LOCALE;
+        // Fall back to default locale
         return NextResponse.redirect(
             new URL(
-                `/${detected}${pathname === "/" ? "" : pathname}`,
+                `/${DEFAULT_LOCALE}${pathname === "/" ? "" : pathname}`,
                 request.url,
             ),
         );

@@ -92,6 +92,7 @@ export async function getEvents(
         sort: "dateStart:desc",
         "pagination[page]": page,
         "pagination[pageSize]": pageSize,
+        "filters[eventType][$ne]": "general",
         locale,
         status: "published",
     };
@@ -182,6 +183,57 @@ export async function getPressReleases(
     return data;
 }
 
+export async function getPressReleaseBySlug(slug: string, locale: Locale = "fr") {
+    const decoded = decodeURIComponent(slug);
+    const { data } = await api.get<StrapiResponse<StrapiPressRelease[]>>(
+        "/press-releases",
+        {
+            params: {
+                "filters[slug][$eq]": decoded,
+                populate: ["featuredImage"],
+                locale,
+                status: "published",
+            },
+        },
+    );
+    return data.data[0] ?? null;
+}
+
+export async function pressReleaseExistsInLocale(
+    slug: string,
+    locale: Locale,
+): Promise<boolean> {
+    const decoded = decodeURIComponent(slug);
+    const { data } = await api.get<StrapiResponse<StrapiPressRelease[]>>(
+        "/press-releases",
+        {
+            params: {
+                "filters[slug][$eq]": decoded,
+                "fields[0]": "id",
+                locale,
+                status: "published",
+            },
+        },
+    );
+    return data.data.length > 0;
+}
+
+export async function getGalleryBySlug(slug: string, locale: Locale = "fr") {
+    const decoded = decodeURIComponent(slug);
+    const { data } = await api.get<StrapiResponse<StrapiGallery[]>>(
+        "/galleries",
+        {
+            params: {
+                "filters[slug][$eq]": decoded,
+                populate: ["coverImage", "images"],
+                locale,
+                status: "published",
+            },
+        },
+    );
+    return data.data[0] ?? null;
+}
+
 // ─── Categories ─────────────────────────────────────────────────
 
 export async function getCategories(locale: Locale = "fr") {
@@ -196,4 +248,56 @@ export async function getCategories(locale: Locale = "fr") {
         },
     );
     return data.data;
+}
+
+// ─── Search ─────────────────────────────────────────────────────
+
+export interface SearchResults {
+    articles: StrapiArticle[];
+    events: StrapiEvent[];
+    pressReleases: StrapiPressRelease[];
+}
+
+export async function searchContent(
+    query: string,
+    locale: Locale = "fr",
+    limit = 5,
+): Promise<SearchResults> {
+    const common = {
+        "filters[title][$containsi]": query,
+        locale,
+        status: "published" as const,
+        "pagination[pageSize]": limit,
+        sort: "createdAt:desc",
+    };
+
+    const [articles, events, pressReleases] = await Promise.all([
+        api
+            .get<StrapiResponse<StrapiArticle[]>>("/articles", {
+                params: {
+                    ...common,
+                    populate: ["featuredImage", "categories"],
+                },
+            })
+            .then((r) => r.data.data),
+        api
+            .get<StrapiResponse<StrapiEvent[]>>("/events", {
+                params: {
+                    ...common,
+                    populate: ["featuredImage", "categories"],
+                    "filters[eventType][$ne]": "general",
+                },
+            })
+            .then((r) => r.data.data),
+        api
+            .get<StrapiResponse<StrapiPressRelease[]>>("/press-releases", {
+                params: {
+                    ...common,
+                    populate: ["featuredImage"],
+                },
+            })
+            .then((r) => r.data.data),
+    ]);
+
+    return { articles, events, pressReleases };
 }

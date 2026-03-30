@@ -10,8 +10,9 @@ import type { Locale } from "@/types";
 function navItems(locale: Locale) {
     return [
         { href: localePath(locale, "/"), label: t(locale, "home") },
-        { href: localePath(locale, "/articles"), label: t(locale, "articles") },
+        { href: localePath(locale, "/press-releases"), label: t(locale, "pressReleases") },
         { href: localePath(locale, "/events"), label: t(locale, "events") },
+        { href: localePath(locale, "/articles"), label: t(locale, "articles") },
         { href: localePath(locale, "/about"), label: t(locale, "about") },
         { href: localePath(locale, "/contact"), label: t(locale, "contact") },
     ];

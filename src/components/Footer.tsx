@@ -34,36 +34,6 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div>
-                        <h3>
-                            {locale === "ar"
-                                ? "مساعدة اللاجئين"
-                                : "Aide aux réfugiés"}
-                        </h3>
-                        <ul>
-                            <li>
-                                <Link href="#">
-                                    {locale === "ar"
-                                        ? "عناوين مفيدة"
-                                        : "Adresses utiles"}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    {locale === "ar"
-                                        ? "دروس فرنسية"
-                                        : "Cours de français"}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    {locale === "ar"
-                                        ? "مساعدة قانونية"
-                                        : "Aide juridique"}
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
                         <h3>{locale === "ar" ? "وسائطنا" : "Nos médias"}</h3>
                         <ul>
                             <li>
@@ -77,8 +47,13 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#">
-                                    {locale === "ar" ? "فيديوهات" : "Vidéos"}
+                                <Link href={localePath(locale, "/press-releases")}>
+                                    {t(locale, "pressReleases")}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={localePath(locale, "/galleries")}>
+                                    {t(locale, "galleries")}
                                 </Link>
                             </li>
                         </ul>
