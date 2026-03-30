@@ -7,7 +7,8 @@ import SearchBox from "./SearchBox";
 import { alternateLocale, localePath, t } from "@/libs/locale";
 
 export default function Header() {
-    const { theme, resolvedTheme, locale, toggleTheme, switchLocale } = useTheme();
+    const { theme, resolvedTheme, locale, toggleTheme, switchLocale } =
+        useTheme();
 
     return (
         <header className="header">
@@ -45,7 +46,17 @@ export default function Header() {
                             {alternateLocale(locale) === "ar" ? "عربي" : "FR"}
                         </span>
                     </button>
-                    <button className="toggle-btn" onClick={toggleTheme} title={theme === "light" ? "Light" : theme === "dark" ? "Dark" : "System"}>
+                    <button
+                        className="toggle-btn"
+                        onClick={toggleTheme}
+                        title={
+                            theme === "light"
+                                ? "Light"
+                                : theme === "dark"
+                                  ? "Dark"
+                                  : "System"
+                        }
+                    >
                         {theme === "light" ? (
                             <svg
                                 width="18"
@@ -106,7 +117,13 @@ export default function Header() {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                             >
-                                <rect x="2" y="3" width="20" height="14" rx="2" />
+                                <rect
+                                    x="2"
+                                    y="3"
+                                    width="20"
+                                    height="14"
+                                    rx="2"
+                                />
                                 <line x1="8" y1="21" x2="16" y2="21" />
                                 <line x1="12" y1="17" x2="12" y2="21" />
                             </svg>

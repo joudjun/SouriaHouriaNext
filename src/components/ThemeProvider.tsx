@@ -46,13 +46,16 @@ export function ThemeProvider({
     const [theme, setTheme] = useState<Theme>(() => {
         if (typeof window !== "undefined") {
             const saved = localStorage.getItem("sh-theme") as Theme | null;
-            if (saved === "dark" || saved === "light" || saved === "system") return saved;
+            if (saved === "dark" || saved === "light" || saved === "system")
+                return saved;
         }
         return "system";
     });
     const [systemPref, setSystemPref] = useState<"light" | "dark">(() => {
         if (typeof window !== "undefined") {
-            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            return window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
         }
         return "light";
     });
@@ -61,12 +64,14 @@ export function ThemeProvider({
     const isFirstRender = useRef(true);
 
     const locale: Locale = initialLocale;
-    const resolvedTheme: "light" | "dark" = theme === "system" ? systemPref : theme;
+    const resolvedTheme: "light" | "dark" =
+        theme === "system" ? systemPref : theme;
 
     // Listen for OS theme changes
     useEffect(() => {
         const mq = window.matchMedia("(prefers-color-scheme: dark)");
-        const handler = (e: MediaQueryListEvent) => setSystemPref(e.matches ? "dark" : "light");
+        const handler = (e: MediaQueryListEvent) =>
+            setSystemPref(e.matches ? "dark" : "light");
         mq.addEventListener("change", handler);
         return () => mq.removeEventListener("change", handler);
     }, []);
