@@ -42,12 +42,8 @@ export function proxy(request: NextRequest) {
         );
     }
 
-    // Set locale header for the root layout and security headers
-    const locale = LOCALES.find(
-        (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`),
-    )!;
+    // Set security headers
     const response = NextResponse.next();
-    response.headers.set("x-locale", locale);
     response.headers.set("X-Content-Type-Options", "nosniff");
     response.headers.set("X-Frame-Options", "SAMEORIGIN");
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");

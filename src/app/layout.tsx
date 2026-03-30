@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Inter, Noto_Sans_Arabic, Noto_Naskh_Arabic } from "next/font/google";
 import "./globals.css";
-import type { Locale } from "@/types";
-import { localeDir } from "@/libs/locale";
 
 const inter = Inter({
     variable: "--font-inter",
@@ -29,20 +26,17 @@ export const metadata: Metadata = {
         "Souria Houria œuvre pour la liberté, la dignité et les droits du peuple syrien.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const h = await headers();
-    const locale = (h.get("x-locale") || "fr") as Locale;
-
     return (
-        <html lang={locale} dir={localeDir(locale)} suppressHydrationWarning>
+        <html suppressHydrationWarning>
             <head>
                 <script
                     dangerouslySetInnerHTML={{
-                        __html: `(function(){try{var t=localStorage.getItem("sh-theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t)}else{var d=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",d)}}catch(e){document.documentElement.setAttribute("data-theme","light")}})()`,
+                        __html: `(function(){var d=document.documentElement;try{var t=localStorage.getItem("sh-theme");if(t==="dark"||t==="light"){d.setAttribute("data-theme",t)}else{var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",m)}}catch(e){d.setAttribute("data-theme","light")}var l=location.pathname.match(/^\\/(fr|ar)/);if(l){d.lang=l[1];d.dir=l[1]==="ar"?"rtl":"ltr"}})()`,
                     }}
                 />
             </head>
