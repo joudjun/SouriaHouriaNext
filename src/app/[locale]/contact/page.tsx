@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ContactForm from "@/components/ContactForm";
 import { localePath, t } from "@/libs/locale";
 import type { Locale } from "@/types";
 
@@ -50,123 +51,7 @@ export default async function ContactPage({ params }: Props) {
 
                     <div className="contact-grid">
                         {/* Contact form */}
-                        <div className="contact-form-wrapper">
-                            <form className="contact-form">
-                                <div className="form-group">
-                                    <label
-                                        className="form-label"
-                                        htmlFor="name"
-                                    >
-                                        {loc === "ar"
-                                            ? "الاسم الكامل *"
-                                            : "Nom complet *"}
-                                    </label>
-                                    <input
-                                        className="form-input"
-                                        type="text"
-                                        id="name"
-                                        placeholder={
-                                            loc === "ar" ? "اسمك" : "Votre nom"
-                                        }
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label
-                                        className="form-label"
-                                        htmlFor="email"
-                                    >
-                                        {loc === "ar"
-                                            ? "البريد الإلكتروني *"
-                                            : "Email *"}
-                                    </label>
-                                    <input
-                                        className="form-input"
-                                        type="email"
-                                        id="email"
-                                        placeholder={
-                                            loc === "ar"
-                                                ? "بريدك@email.com"
-                                                : "votre@email.com"
-                                        }
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label
-                                        className="form-label"
-                                        htmlFor="subject"
-                                    >
-                                        {loc === "ar" ? "الموضوع *" : "Sujet *"}
-                                    </label>
-                                    <select
-                                        className="form-select"
-                                        id="subject"
-                                        defaultValue=""
-                                    >
-                                        <option value="" disabled>
-                                            {loc === "ar"
-                                                ? "اختر موضوعاً"
-                                                : "Choisir un sujet"}
-                                        </option>
-                                        <option>
-                                            {loc === "ar"
-                                                ? "سؤال عام"
-                                                : "Question générale"}
-                                        </option>
-                                        <option>
-                                            {loc === "ar"
-                                                ? "الانضمام كعضو"
-                                                : "Devenir membre"}
-                                        </option>
-                                        <option>
-                                            {loc === "ar"
-                                                ? "اقتراح شراكة"
-                                                : "Proposition de partenariat"}
-                                        </option>
-                                        <option>
-                                            {loc === "ar"
-                                                ? "صحافة / إعلام"
-                                                : "Presse / Médias"}
-                                        </option>
-                                        <option>
-                                            {loc === "ar"
-                                                ? "الإبلاغ عن مشكلة"
-                                                : "Signaler un problème"}
-                                        </option>
-                                        <option>
-                                            {loc === "ar" ? "أخرى" : "Autre"}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label
-                                        className="form-label"
-                                        htmlFor="message"
-                                    >
-                                        {loc === "ar"
-                                            ? "الرسالة *"
-                                            : "Message *"}
-                                    </label>
-                                    <textarea
-                                        className="form-textarea"
-                                        id="message"
-                                        rows={6}
-                                        placeholder={
-                                            loc === "ar"
-                                                ? "رسالتك..."
-                                                : "Votre message..."
-                                        }
-                                    />
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary"
-                                >
-                                    {loc === "ar"
-                                        ? "إرسال الرسالة"
-                                        : "Envoyer le message"}
-                                </button>
-                            </form>
-                        </div>
+                        <ContactForm locale={loc} />
 
                         {/* Contact info sidebar */}
                         <div className="contact-info-sidebar">

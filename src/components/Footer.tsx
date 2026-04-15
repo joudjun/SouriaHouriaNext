@@ -1,11 +1,46 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "./ThemeProvider";
 import { localePath, t } from "@/libs/locale";
 
 export default function Footer() {
     const { locale } = useTheme();
+    const [nlStatus, setNlStatus] = useState<
+        "idle" | "submitting" | "success" | "error"
+    >("idle");
+    const [nlError, setNlError] = useState("");
+
+    async function handleNewsletter(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setNlStatus("submitting");
+        setNlError("");
+
+        const form = e.currentTarget;
+        const email = new FormData(form).get("email");
+
+        try {
+            const res = await fetch("/api/newsletter", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, locale }),
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.error || "Failed");
+            }
+
+            setNlStatus("success");
+            form.reset();
+        } catch (err) {
+            setNlStatus("error");
+            setNlError(
+                err instanceof Error ? err.message : "Failed to subscribe",
+            );
+        }
+    }
 
     return (
         <footer className="footer">
@@ -72,14 +107,52 @@ export default function Footer() {
                                 ? "احصل على آخر أخبارنا."
                                 : "Recevez nos dernières actualités."}
                         </p>
-                        <form
-                            className="newsletter-form"
-                            action="#"
-                            style={{ marginTop: "var(--space-4)" }}
-                        >
-                            <input type="email" placeholder="Email" />
-                            <button type="submit">OK</button>
-                        </form>
+                        {nlStatus === "success" ? (
+                            <p
+                                style={{
+                                    marginTop: "var(--space-4)",
+                                    color: "#4ade80",
+                                    fontSize: "0.875rem",
+                                }}
+                            >
+                                {locale === "ar"
+                                    ? "تم الاشتراك بنجاح!"
+                                    : "Inscription réussie !"}
+                            </p>
+                        ) : (
+                            <form
+                                className="newsletter-form"
+                                onSubmit={handleNewsletter}
+                                style={{ marginTop: "var(--space-4)" }}
+                            >
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    required
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={nlStatus === "submitting"}
+                                >
+                                    {nlStatus === "submitting" ? "..." : "OK"}
+                                </button>
+                            </form>
+                        )}
+                        {nlStatus === "error" && (
+                            <p
+                                style={{
+                                    marginTop: "var(--space-2)",
+                                    color: "#f87171",
+                                    fontSize: "0.75rem",
+                                }}
+                            >
+                                {nlError ||
+                                    (locale === "ar"
+                                        ? "حدث خطأ"
+                                        : "Une erreur est survenue")}
+                            </p>
+                        )}
                     </div>
                 </div>
                 <div className="footer-bottom">
