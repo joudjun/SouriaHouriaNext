@@ -35,9 +35,25 @@ export function htmlExcerpt(
     len = 140,
 ): string {
     if (!html) return "";
-    const text = html.replace(/<[^>]+>/g, "").trim();
+    const text = html
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+        .replace(/<[^>]+>/g, "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, "'")
+        .replace(/&laquo;/g, "\u00AB")
+        .replace(/&raquo;/g, "\u00BB")
+        .replace(/&#\d+;/g, (m) =>
+            String.fromCharCode(Number(m.slice(2, -1))),
+        )
+        .replace(/\s+/g, " ")
+        .trim();
     if (text.length <= len) return text;
-    return text.slice(0, len) + "…";
+    return text.slice(0, len) + "\u2026";
 }
 
 /** Build a locale-prefixed path. */
