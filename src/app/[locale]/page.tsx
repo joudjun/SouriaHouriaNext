@@ -55,36 +55,8 @@ export default async function HomePage({ params }: Props) {
                 </div>
             </section>
 
-            {/* Dernières publications */}
-            <section className="section">
-                <div className="container">
-                    <div className="section-header">
-                        <h2>{t(loc, "latestArticles")}</h2>
-                        <Link
-                            href={localePath(loc, "/articles")}
-                            className="see-all"
-                        >
-                            {t(loc, "seeAllArticles")}
-                        </Link>
-                    </div>
-                    <div className="card-grid">
-                        {articles.map((a) => (
-                            <Card
-                                key={a.id}
-                                href={localePath(loc, `/articles/${a.slug}`)}
-                                image={getImageUrl(a.featuredImage, a.content)}
-                                category={a.categories?.[0]?.name ?? ""}
-                                title={a.title}
-                                excerpt={htmlExcerpt(a.content)}
-                                date={formatDate(a.createdAt, loc)}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* Évènements */}
-            <section className="section section-alt">
+            <section className="section">
                 <div className="container">
                     <div className="section-header">
                         <h2>{t(loc, "upcomingEvents")}</h2>
@@ -129,6 +101,34 @@ export default async function HomePage({ params }: Props) {
                                 />
                             );
                         })}
+                    </div>
+                </div>
+            </section>
+
+            {/* Dernières publications */}
+            <section className="section section-alt">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>{t(loc, "latestArticles")}</h2>
+                        <Link
+                            href={localePath(loc, "/articles")}
+                            className="see-all"
+                        >
+                            {t(loc, "seeAllArticles")}
+                        </Link>
+                    </div>
+                    <div className="card-grid">
+                        {articles.map((a) => (
+                            <Card
+                                key={a.id}
+                                href={localePath(loc, `/articles/${a.slug}`)}
+                                image={getImageUrl(a.featuredImage, a.content)}
+                                category={a.categories?.[0]?.name ?? ""}
+                                title={a.title}
+                                excerpt={htmlExcerpt(a.content)}
+                                date={formatDate(a.createdAt, loc)}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>
