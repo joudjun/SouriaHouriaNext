@@ -18,8 +18,9 @@ export default function SyriaMapHero() {
             .then((svgText) => {
                 if (cancelled) return;
                 el.innerHTML = svgText;
-                const svg = el.querySelector("svg");
-                if (!svg) return;
+                const svgEl = el.querySelector("svg");
+                if (!svgEl) return;
+                const svg = svgEl;
                 svg.style.width = "100%";
                 svg.style.height = "100%";
                 svg.style.overflow = "visible";
