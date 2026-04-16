@@ -38,47 +38,50 @@ const team = [
     },
 ];
 
+const missionIcons = [
+    // Shield — rights defense
+    <svg key="shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="36" height="36"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>,
+    // Hands — refugee support
+    <svg key="hands" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="36" height="36"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    // Megaphone — advocacy
+    <svg key="mega" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="36" height="36"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>,
+    // Palette — culture & memory
+    <svg key="palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="36" height="36"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.7-.7 1.7-1.5 0-.4-.2-.7-.4-1-.2-.3-.3-.7-.3-1 0-.8.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-5.5-4.5-9-10-9z"/></svg>,
+];
+
 const missions = {
     fr: [
         {
-            icon: "🕊️",
             title: "Défense des droits",
             text: "Nous défendons les droits fondamentaux du peuple syrien et documentons les violations des droits humains en Syrie depuis 2011.",
         },
         {
-            icon: "🤝",
             title: "Soutien aux réfugiés",
             text: "Nous accompagnons les réfugiés syriens en France dans leurs démarches administratives, juridiques et d'intégration sociale.",
         },
         {
-            icon: "📢",
             title: "Plaidoyer international",
             text: "Nous portons la voix de la société civile syrienne auprès des institutions européennes et internationales.",
         },
         {
-            icon: "🎭",
             title: "Culture et mémoire",
             text: "Nous organisons des événements culturels pour faire vivre la culture syrienne et préserver la mémoire collective.",
         },
     ],
     ar: [
         {
-            icon: "🕊️",
             title: "الدفاع عن الحقوق",
             text: "ندافع عن الحقوق الأساسية للشعب السوري ونوثق انتهاكات حقوق الإنسان في سوريا منذ 2011.",
         },
         {
-            icon: "🤝",
             title: "دعم اللاجئين",
             text: "نرافق اللاجئين السوريين في فرنسا في إجراءاتهم الإدارية والقانونية والاندماج الاجتماعي.",
         },
         {
-            icon: "📢",
             title: "المناصرة الدولية",
             text: "نحمل صوت المجتمع المدني السوري لدى المؤسسات الأوروبية والدولية.",
         },
         {
-            icon: "🎭",
             title: "الثقافة والذاكرة",
             text: "ننظم فعاليات ثقافية لإحياء الثقافة السورية والحفاظ على الذاكرة الجماعية.",
         },
@@ -152,7 +155,7 @@ export default async function AboutPage({ params }: Props) {
                         {missions[loc].map((m, i) => (
                             <div key={i} className="about-mission-card">
                                 <div className="about-mission-icon">
-                                    {m.icon}
+                                    {missionIcons[i]}
                                 </div>
                                 <h3>{m.title}</h3>
                                 <p>{m.text}</p>
