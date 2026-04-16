@@ -55,7 +55,7 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#">
+                                <Link href={localePath(locale, "/contact?subject=member")}>
                                     {locale === "ar"
                                         ? "كن عضواً"
                                         : "Devenir membre"}

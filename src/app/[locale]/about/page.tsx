@@ -347,7 +347,7 @@ export default async function AboutPage({ params }: Props) {
                             flexWrap: "wrap",
                         }}
                     >
-                        <Link href="#" className="btn btn-white-outline">
+                        <Link href={localePath(loc, "/contact?subject=member")} className="btn btn-white-outline">
                             {loc === "ar" ? "كن عضواً" : "Devenir membre"}
                         </Link>
                         <Link href="#" className="btn btn-white-outline">

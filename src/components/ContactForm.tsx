@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Locale } from "@/types";
 
 interface Props {
@@ -27,10 +28,15 @@ const subjects = {
 };
 
 export default function ContactForm({ locale }: Props) {
+    const searchParams = useSearchParams();
+    const preselect = searchParams.get("subject");
+    const defaultSubjectIdx = preselect === "member" ? 1 : -1;
+
     const [status, setStatus] = useState<
         "idle" | "submitting" | "success" | "error"
     >("idle");
     const [errorMsg, setErrorMsg] = useState("");
+    const [newsletter, setNewsletter] = useState(true);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -40,9 +46,10 @@ export default function ContactForm({ locale }: Props) {
         const form = e.currentTarget;
         const formData = new FormData(form);
 
+        const email = formData.get("email") as string;
         const payload = {
             name: formData.get("name"),
-            email: formData.get("email"),
+            email,
             subject: formData.get("subject"),
             message: formData.get("message"),
             locale,
@@ -58,6 +65,15 @@ export default function ContactForm({ locale }: Props) {
             if (!res.ok) {
                 const data = await res.json();
                 throw new Error(data.error || "Submission failed");
+            }
+
+            // Subscribe to newsletter if checked (fire and forget)
+            if (newsletter && email) {
+                fetch("/api/newsletter", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, locale }),
+                }).catch(() => {});
             }
 
             setStatus("success");
@@ -154,7 +170,7 @@ export default function ContactForm({ locale }: Props) {
                         id="subject"
                         name="subject"
                         required
-                        defaultValue=""
+                        defaultValue={defaultSubjectIdx >= 0 ? subjects[locale][defaultSubjectIdx] : ""}
                     >
                         <option value="" disabled>
                             {locale === "ar"
@@ -184,6 +200,29 @@ export default function ContactForm({ locale }: Props) {
                                 : "Votre message..."
                         }
                     />
+                </div>
+
+                <div className="form-group">
+                    <label
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "var(--space-2)",
+                            cursor: "pointer",
+                            fontSize: "0.875rem",
+                            color: "var(--text-secondary)",
+                        }}
+                    >
+                        <input
+                            type="checkbox"
+                            checked={newsletter}
+                            onChange={(e) => setNewsletter(e.target.checked)}
+                            style={{ width: 18, height: 18, cursor: "pointer" }}
+                        />
+                        {locale === "ar"
+                            ? "أرغب في الاشتراك في النشرة الإخبارية"
+                            : "Je souhaite m\u2019inscrire à la newsletter"}
+                    </label>
                 </div>
 
                 {status === "error" && (

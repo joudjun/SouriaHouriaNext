@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import { localePath, t } from "@/libs/locale";
@@ -51,7 +52,9 @@ export default async function ContactPage({ params }: Props) {
 
                     <div className="contact-grid">
                         {/* Contact form */}
-                        <ContactForm locale={loc} />
+                        <Suspense>
+                            <ContactForm locale={loc} />
+                        </Suspense>
 
                         {/* Contact info sidebar */}
                         <div className="contact-info-sidebar">
