@@ -56,7 +56,7 @@ export default async function ContactPage({ params }: Props) {
                         {/* Contact info sidebar */}
                         <div className="contact-info-sidebar">
                             <div className="contact-info-item">
-                                <div className="contact-info-icon">📧</div>
+                                <div className="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="24" height="24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
                                 <div>
                                     <h4>
                                         {loc === "ar"
@@ -69,7 +69,7 @@ export default async function ContactPage({ params }: Props) {
                                 </div>
                             </div>
                             <div className="contact-info-item">
-                                <div className="contact-info-icon">📍</div>
+                                <div className="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="24" height="24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
                                 <div>
                                     <h4>
                                         {loc === "ar" ? "العنوان" : "Adresse"}
@@ -84,7 +84,7 @@ export default async function ContactPage({ params }: Props) {
                                 </div>
                             </div>
                             <div className="contact-info-item">
-                                <div className="contact-info-icon">📱</div>
+                                <div className="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="24" height="24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
                                 <div>
                                     <h4>
                                         {loc === "ar"
@@ -126,7 +126,7 @@ export default async function ContactPage({ params }: Props) {
                                 </div>
                             </div>
                             <div className="contact-info-item">
-                                <div className="contact-info-icon">🕐</div>
+                                <div className="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
                                 <div>
                                     <h4>
                                         {loc === "ar"
