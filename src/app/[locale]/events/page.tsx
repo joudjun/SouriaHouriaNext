@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Pagination from "@/components/Pagination";
-import { getEvents, EVENT_TYPES, isValidEventType } from "@/libs/strapi";
+import { getEvents, EVENT_TYPES, isValidEventType, getActiveEventTypes } from "@/libs/strapi";
 import type { EventTypeFilter } from "@/libs/strapi";
 import { getImageUrl } from "@/libs/image";
 import { htmlExcerpt, localePath, t, type TranslationKey } from "@/libs/locale";
@@ -50,7 +50,10 @@ export default async function EventsPage({ params, searchParams }: Props) {
         sp.upcoming === "1" ? true : sp.upcoming === "0" ? false : undefined;
     const eventType = sp.type && isValidEventType(sp.type) ? sp.type : undefined;
 
-    const eventsRes = await getEvents(page, 9, loc, upcoming, eventType);
+    const [eventsRes, activeTypes] = await Promise.all([
+        getEvents(page, 9, loc, upcoming, eventType),
+        getActiveEventTypes(loc),
+    ]);
     const events = eventsRes.data;
     const pagination = eventsRes.meta.pagination!;
 
@@ -96,7 +99,7 @@ export default async function EventsPage({ params, searchParams }: Props) {
                     >
                         {t(loc, "all")}
                     </Link>
-                    {EVENT_TYPES.map((et) => (
+                    {EVENT_TYPES.filter((et) => activeTypes.has(et)).map((et) => (
                         <Link
                             key={et}
                             href={filterHref({ type: et })}

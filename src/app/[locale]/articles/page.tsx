@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Pagination from "@/components/Pagination";
-import { getArticles, getCategories } from "@/libs/strapi";
+import { getArticles, getCategories, getActiveCategorySlugs } from "@/libs/strapi";
 import { getImageUrl } from "@/libs/image";
 import { formatDate, htmlExcerpt, localePath, t } from "@/libs/locale";
 import Link from "next/link";
@@ -36,13 +36,15 @@ export default async function ArticlesPage({ params, searchParams }: Props) {
     const page = Number(sp.page) || 1;
     const categorySlug = sp.category;
 
-    const [articlesRes, categories] = await Promise.all([
+    const [articlesRes, categories, activeSlugs] = await Promise.all([
         getArticles(page, 9, loc, categorySlug),
         getCategories(loc),
+        getActiveCategorySlugs(loc),
     ]);
 
     const articles = articlesRes.data;
     const pagination = articlesRes.meta.pagination!;
+    const activeCategories = categories.filter((cat) => activeSlugs.has(cat.slug));
 
     return (
         <section className="section">
@@ -63,7 +65,7 @@ export default async function ArticlesPage({ params, searchParams }: Props) {
                     >
                         {t(loc, "all")}
                     </Link>
-                    {categories.map((cat) => (
+                    {activeCategories.map((cat) => (
                         <Link
                             key={cat.id}
                             href={localePath(

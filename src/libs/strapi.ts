@@ -260,6 +260,53 @@ export async function getGalleryBySlug(slug: string, locale: Locale = "fr") {
     return data.data[0] ?? null;
 }
 
+/** Returns which event types have at least 1 published event for a locale. */
+export async function getActiveEventTypes(
+    locale: Locale = "fr",
+): Promise<Set<EventTypeFilter>> {
+    const counts = await Promise.all(
+        EVENT_TYPES.map((et) =>
+            api
+                .get<StrapiResponse<StrapiEvent[]>>("/events", {
+                    params: {
+                        "filters[eventType][$eq]": et,
+                        locale,
+                        status: "published",
+                        "pagination[pageSize]": 1,
+                    },
+                })
+                .then((r) => [et, r.data.meta.pagination!.total] as const),
+        ),
+    );
+    return new Set(
+        counts.filter(([, total]) => total > 0).map(([et]) => et),
+    );
+}
+
+/** Returns category slugs that have at least 1 published article for a locale. */
+export async function getActiveCategorySlugs(
+    locale: Locale = "fr",
+): Promise<Set<string>> {
+    const cats = await getCategories(locale);
+    const checks = await Promise.all(
+        cats.map((cat) =>
+            api
+                .get<StrapiResponse<StrapiArticle[]>>("/articles", {
+                    params: {
+                        "filters[categories][slug][$eq]": cat.slug,
+                        locale,
+                        status: "published",
+                        "pagination[pageSize]": 1,
+                    },
+                })
+                .then((r) => [cat.slug, r.data.meta.pagination!.total] as const),
+        ),
+    );
+    return new Set(
+        checks.filter(([, total]) => total > 0).map(([slug]) => slug),
+    );
+}
+
 // ─── Categories ─────────────────────────────────────────────────
 
 export async function getCategories(locale: Locale = "fr") {
