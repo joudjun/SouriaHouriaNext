@@ -1,9 +1,16 @@
 import Link from "next/link";
 import Card from "@/components/Card";
-import { getArticles, getEvents } from "@/libs/strapi";
+import { getArticles, getEvents, type EventTypeFilter } from "@/libs/strapi";
 import { getImageUrl } from "@/libs/image";
-import { formatDate, htmlExcerpt, localePath, t } from "@/libs/locale";
+import { formatDate, htmlExcerpt, localePath, t, type TranslationKey } from "@/libs/locale";
 import type { Locale } from "@/types";
+
+const eventTypeLabel: Record<EventTypeFilter, TranslationKey> = {
+    souriahouria: "eventTypeSouriahouria",
+    sundays: "eventTypeSundays",
+    apricot: "eventTypeApricot",
+    speeches: "eventTypeSpeeches",
+};
 
 export const revalidate = 60;
 
@@ -80,7 +87,7 @@ export default async function HomePage({ params }: Props) {
                                         e.featuredImage,
                                         e.content,
                                     )}
-                                    category={e.categories?.[0]?.name ?? ""}
+                                    category={e.eventType && eventTypeLabel[e.eventType as EventTypeFilter] ? t(loc, eventTypeLabel[e.eventType as EventTypeFilter]) : ""}
                                     title={e.title}
                                     excerpt={htmlExcerpt(e.content)}
                                     dateBadge={

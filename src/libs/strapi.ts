@@ -81,21 +81,44 @@ export async function articleExistsInLocale(
 
 // ─── Events ─────────────────────────────────────────────────────
 
+export const EVENT_TYPES = [
+    "souriahouria",
+    "sundays",
+    "apricot",
+    "speeches",
+] as const;
+
+export type EventTypeFilter = (typeof EVENT_TYPES)[number];
+
+export function isValidEventType(v: string): v is EventTypeFilter {
+    return (EVENT_TYPES as readonly string[]).includes(v);
+}
+
 export async function getEvents(
     page = 1,
     pageSize = 9,
     locale: Locale = "fr",
     upcoming?: boolean,
+    eventType?: EventTypeFilter,
 ) {
     const params: Record<string, unknown> = {
         populate: ["featuredImage", "categories"],
         sort: "dateStart:desc",
         "pagination[page]": page,
         "pagination[pageSize]": pageSize,
-        "filters[eventType][$ne]": "general",
         locale,
         status: "published",
     };
+
+    if (eventType) {
+        params["filters[eventType][$eq]"] = eventType;
+    } else {
+        // Only show the 4 association event types, exclude "general"
+        EVENT_TYPES.forEach((t, i) => {
+            params[`filters[$or][${i}][eventType][$eq]`] = t;
+        });
+    }
+
     if (upcoming === true) {
         params["filters[dateStart][$gte]"] = new Date().toISOString();
         params.sort = "dateStart:asc";
@@ -288,7 +311,12 @@ export async function searchContent(
                 params: {
                     ...common,
                     populate: ["featuredImage", "categories"],
-                    "filters[eventType][$ne]": "general",
+                    ...Object.fromEntries(
+                        EVENT_TYPES.map((t, i) => [
+                            `filters[$or][${i}][eventType][$eq]`,
+                            t,
+                        ]),
+                    ),
                 },
             })
             .then((r) => r.data.data),

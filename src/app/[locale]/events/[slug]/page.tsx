@@ -1,11 +1,18 @@
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { getEventBySlug, eventExistsInLocale } from "@/libs/strapi";
+import { getEventBySlug, eventExistsInLocale, type EventTypeFilter } from "@/libs/strapi";
 import { getImageUrl, getImageAlt, processContent } from "@/libs/image";
-import { formatDate, localePath, t, defaultLocale } from "@/libs/locale";
+import { formatDate, localePath, t, defaultLocale, type TranslationKey } from "@/libs/locale";
 import ShareButtons from "@/components/ShareButtons";
 import type { Locale } from "@/types";
+
+const eventTypeLabel: Record<EventTypeFilter, TranslationKey> = {
+    souriahouria: "eventTypeSouriahouria",
+    sundays: "eventTypeSundays",
+    apricot: "eventTypeApricot",
+    speeches: "eventTypeSpeeches",
+};
 
 export const revalidate = 300;
 
@@ -61,9 +68,9 @@ export default async function EventPage({ params }: Props) {
                     ]}
                 />
 
-                {event.categories?.length > 0 && (
+                {event.eventType && eventTypeLabel[event.eventType as EventTypeFilter] && (
                     <span className="card-category">
-                        {event.categories[0].name}
+                        {t(loc, eventTypeLabel[event.eventType as EventTypeFilter])}
                     </span>
                 )}
 

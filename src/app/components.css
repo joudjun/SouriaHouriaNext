@@ -587,6 +587,13 @@ p { margin-bottom: var(--space-6); color: var(--text-secondary); }
 }
 
 /* ── Filter / Tab Bar ── */
+.filter-label {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: var(--space-3) 0 0;
+}
 .filter-bar {
   display: flex;
   gap: var(--space-2);
