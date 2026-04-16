@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Card from "@/components/Card";
+import SyriaMapHero from "@/components/SyriaMapHero";
 import { getArticles, getEvents, type EventTypeFilter } from "@/libs/strapi";
 import { getImageUrl } from "@/libs/image";
 import { formatDate, htmlExcerpt, localePath, t, type TranslationKey } from "@/libs/locale";
@@ -41,13 +42,8 @@ export default async function HomePage({ params }: Props) {
     return (
         <>
             {/* Hero */}
-            <section
-                className="hero"
-                style={{
-                    backgroundImage:
-                        "url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=1440&h=480&fit=crop')",
-                }}
-            >
+            <section className="hero">
+                <SyriaMapHero />
                 <div className="hero-content">
                     <h1>
                         {loc === "ar"
