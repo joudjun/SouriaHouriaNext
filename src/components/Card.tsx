@@ -8,6 +8,7 @@ interface CardProps {
     excerpt?: string;
     date?: string;
     dateBadge?: { day: string; month: string };
+    badge?: string;
 }
 
 export default function Card({
@@ -18,6 +19,7 @@ export default function Card({
     excerpt,
     date,
     dateBadge,
+    badge,
 }: CardProps) {
     return (
         <Link href={href} className="card">
@@ -25,6 +27,7 @@ export default function Card({
                 className="card-thumbnail"
                 style={{ backgroundImage: `url('${image}')` }}
             >
+                {badge && <span className="card-badge">{badge}</span>}
                 {dateBadge && (
                     <div className="date-badge">
                         <span className="date-badge-day">{dateBadge.day}</span>

@@ -22,13 +22,21 @@ export default async function HomePage({ params }: Props) {
     const { locale } = await params;
     const loc = locale as Locale;
 
-    const [articlesRes, eventsRes] = await Promise.all([
+    const [articlesRes, upcomingRes, recentRes] = await Promise.all([
         getArticles(1, 6, loc),
         getEvents(1, 3, loc, true),
+        getEvents(1, 3, loc),
     ]);
 
     const articles = articlesRes.data;
-    const events = eventsRes.data;
+    const upcomingIds = new Set(upcomingRes.data.map((e) => e.id));
+    // Show upcoming first, fill remaining slots with recent
+    const events = upcomingRes.data.length > 0
+        ? [
+              ...upcomingRes.data,
+              ...recentRes.data.filter((e) => !upcomingIds.has(e.id)),
+          ].slice(0, 3)
+        : recentRes.data;
 
     return (
         <>
@@ -66,7 +74,7 @@ export default async function HomePage({ params }: Props) {
             <section className="section">
                 <div className="container">
                     <div className="section-header">
-                        <h2>{t(loc, "upcomingEvents")}</h2>
+                        <h2>{t(loc, "latestEvents")}</h2>
                         <Link
                             href={localePath(loc, "/events")}
                             className="see-all"
@@ -90,6 +98,7 @@ export default async function HomePage({ params }: Props) {
                                     category={e.eventType && eventTypeLabel[e.eventType as EventTypeFilter] ? t(loc, eventTypeLabel[e.eventType as EventTypeFilter]) : ""}
                                     title={e.title}
                                     excerpt={htmlExcerpt(e.content)}
+                                    badge={upcomingIds.has(e.id) ? (loc === "ar" ? "قادم" : "À venir") : undefined}
                                     dateBadge={
                                         start
                                             ? {
