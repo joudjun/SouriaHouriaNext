@@ -52,17 +52,7 @@ export default function SyriaMapHero() {
                 const paths = svg.querySelectorAll<SVGPathElement>(".gov");
                 if (paths.length === 0) return;
 
-                // Random sweep directions [x1, y1, x2, y2]
-                const DIRS: [string, string, string, string][] = [
-                    ["0%", "0%", "0%", "100%"],
-                    ["0%", "100%", "0%", "0%"],
-                    ["0%", "0%", "100%", "0%"],
-                    ["100%", "0%", "0%", "0%"],
-                    ["0%", "0%", "100%", "100%"],
-                    ["100%", "0%", "0%", "100%"],
-                    ["0%", "100%", "100%", "0%"],
-                    ["100%", "100%", "0%", "0%"],
-                ];
+                // No fixed directions — each governorate tracks an angle that drifts
 
                 paths.forEach((path, i) => {
                     // Remove inline fill so we can use the gradient
@@ -97,12 +87,20 @@ export default function SyriaMapHero() {
 
                     path.setAttribute("fill", `url(#${gradId})`);
 
+                    // Each governorate has its own angle that drifts slightly each blink
+                    let angle = Math.random() * Math.PI * 2;
+
                     function animateSweep(duration: number, onDone: () => void) {
-                        const dir = DIRS[Math.floor(Math.random() * DIRS.length)];
-                        grad.setAttribute("x1", dir[0]);
-                        grad.setAttribute("y1", dir[1]);
-                        grad.setAttribute("x2", dir[2]);
-                        grad.setAttribute("y2", dir[3]);
+                        // Shift angle by a small random amount: ±15–45 degrees
+                        angle += (Math.random() - 0.5) * (Math.PI / 3);
+                        const x1 = 50 + Math.cos(angle) * 50;
+                        const y1 = 50 + Math.sin(angle) * 50;
+                        const x2 = 50 - Math.cos(angle) * 50;
+                        const y2 = 50 - Math.sin(angle) * 50;
+                        grad.setAttribute("x1", `${x1}%`);
+                        grad.setAttribute("y1", `${y1}%`);
+                        grad.setAttribute("x2", `${x2}%`);
+                        grad.setAttribute("y2", `${y2}%`);
 
                         const startTime = performance.now();
 
@@ -149,9 +147,7 @@ export default function SyriaMapHero() {
                             if (cancelled) return;
                             const sweepDuration = 600 + Math.random() * 1400;
 
-                            path.setAttribute("filter", "url(#glow)");
                             animateSweep(sweepDuration, () => {
-                                path.removeAttribute("filter");
                                 scheduleGlow();
                             });
                         }, delay);
