@@ -47,7 +47,7 @@ export default function Footer() {
             <div className="container">
                 <div className="footer-grid">
                     <div>
-                        <h3>Souria Houria</h3>
+                        <h3>{locale === "ar" ? "سوريا حرية" : "Souria Houria"}</h3>
                         <ul>
                             <li>
                                 <Link href={localePath(locale, "/about")}>
@@ -96,7 +96,7 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div>
-                        <h3>Newsletter</h3>
+                        <h3>{locale === "ar" ? "النشرة الإخبارية" : "Newsletter"}</h3>
                         <p
                             style={{
                                 color: "rgba(255,255,255,0.7)",
@@ -128,14 +128,14 @@ export default function Footer() {
                                 <input
                                     type="email"
                                     name="email"
-                                    placeholder="Email"
+                                    placeholder={locale === "ar" ? "البريد الإلكتروني" : "Email"}
                                     required
                                 />
                                 <button
                                     type="submit"
                                     disabled={nlStatus === "submitting"}
                                 >
-                                    {nlStatus === "submitting" ? "..." : "OK"}
+                                    {nlStatus === "submitting" ? "..." : locale === "ar" ? "إرسال" : "OK"}
                                 </button>
                             </form>
                         )}
@@ -157,10 +157,9 @@ export default function Footer() {
                 </div>
                 <div className="footer-bottom">
                     <p>
-                        © 2026 Souria Houria — Syrie Liberté.{" "}
                         {locale === "ar"
-                            ? "جميع الحقوق محفوظة."
-                            : "Tous droits réservés."}
+                            ? "© 2026 سوريا حرية. جميع الحقوق محفوظة."
+                            : "© 2026 Souria Houria — Syrie Liberté. Tous droits réservés."}
                     </p>
                     <div className="footer-social">
                         <Link href="#">f</Link>

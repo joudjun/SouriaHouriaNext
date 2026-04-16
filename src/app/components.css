@@ -1127,7 +1127,7 @@ p { margin-bottom: var(--space-6); color: var(--text-secondary); }
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-8);
   margin-bottom: var(--space-12);
 }
