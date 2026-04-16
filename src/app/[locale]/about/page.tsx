@@ -350,14 +350,7 @@ export default async function AboutPage({ params }: Props) {
                         <Link href="#" className="btn btn-white-outline">
                             {loc === "ar" ? "كن عضواً" : "Devenir membre"}
                         </Link>
-                        <Link
-                            href="#"
-                            className="btn"
-                            style={{
-                                background: "#fff",
-                                color: "var(--primary)",
-                            }}
-                        >
+                        <Link href="#" className="btn btn-white-outline">
                             {t(loc, "donate")}
                         </Link>
                     </div>
