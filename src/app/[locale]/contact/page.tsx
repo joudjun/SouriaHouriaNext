@@ -66,8 +66,8 @@ export default async function ContactPage({ params }: Props) {
                                             ? "البريد الإلكتروني"
                                             : "Email"}
                                     </h4>
-                                    <a href="mailto:contact@souriahouria.com">
-                                        contact@souriahouria.com
+                                    <a href="mailto:info@souriahouria.com">
+                                        info@souriahouria.com
                                     </a>
                                 </div>
                             </div>
