@@ -43,6 +43,7 @@ export default async function HomePage({ params }: Props) {
         <>
             {/* Hero */}
             <section className="hero">
+                <div className="hero-inner">
                 <SyriaMapHero />
                 <div className="hero-content">
                     <h1>
@@ -63,6 +64,7 @@ export default async function HomePage({ params }: Props) {
                             ? "اكتشف أعمالنا"
                             : "Découvrir nos actions"}
                     </Link>
+                </div>
                 </div>
             </section>
 
