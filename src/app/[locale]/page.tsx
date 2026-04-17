@@ -109,6 +109,9 @@ export default async function HomePage({ params }: Props) {
                                                           : "fr-FR",
                                                       { month: "short" },
                                                   ),
+                                                  year: start.getFullYear() !== new Date().getFullYear()
+                                                      ? String(start.getFullYear())
+                                                      : undefined,
                                               }
                                             : undefined
                                     }

@@ -160,6 +160,9 @@ export default async function EventsPage({ params, searchParams }: Props) {
                                                       : "fr-FR",
                                                   { month: "short" },
                                               ),
+                                              year: start.getFullYear() !== new Date().getFullYear()
+                                                  ? String(start.getFullYear())
+                                                  : undefined,
                                           }
                                         : undefined
                                 }

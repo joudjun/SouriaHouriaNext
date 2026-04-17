@@ -7,7 +7,7 @@ interface CardProps {
     title: string;
     excerpt?: string;
     date?: string;
-    dateBadge?: { day: string; month: string };
+    dateBadge?: { day: string; month: string; year?: string };
     badge?: string;
 }
 
@@ -34,6 +34,9 @@ export default function Card({
                         <span className="date-badge-month">
                             {dateBadge.month}
                         </span>
+                        {dateBadge.year && (
+                            <span className="date-badge-year">{dateBadge.year}</span>
+                        )}
                     </div>
                 )}
             </div>
