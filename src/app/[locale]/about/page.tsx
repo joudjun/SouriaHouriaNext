@@ -209,7 +209,7 @@ export default async function AboutPage({ params }: Props) {
 
             {/* History */}
             <section className="section">
-                <div className="container" style={{ maxWidth: 820 }}>
+                <div className="container" style={{ maxWidth: 900 }}>
                     <h2 className="section-header">
                         {loc === "ar" ? "تاريخنا" : "Notre histoire"}
                     </h2>

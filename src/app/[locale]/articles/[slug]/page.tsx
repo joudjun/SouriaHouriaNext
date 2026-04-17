@@ -48,7 +48,7 @@ export default async function ArticlePage({ params }: Props) {
 
     return (
         <article className="section">
-            <div className="container" style={{ maxWidth: 800 }}>
+            <div className="container" style={{ maxWidth: 1000 }}>
                 <Breadcrumbs
                     items={[
                         { label: t(loc, "home"), href: localePath(loc, "/") },
