@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import { localePath, t } from "@/libs/locale";
+import { getSiteGlobal } from "@/libs/strapi";
 import type { Locale } from "@/types";
 
 interface Props {
@@ -22,6 +23,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ContactPage({ params }: Props) {
     const { locale } = await params;
     const loc = locale as Locale;
+    const global = await getSiteGlobal();
+
+    const socialLabels: Record<string, string> = {
+        facebook: "Facebook",
+        x: "X",
+        youtube: "YouTube",
+        instagram: "Instagram",
+    };
+    const socials = (["facebook", "x", "youtube", "instagram"] as const).filter(
+        (key) => global[key],
+    );
 
     return (
         <>
@@ -66,8 +78,8 @@ export default async function ContactPage({ params }: Props) {
                                             ? "البريد الإلكتروني"
                                             : "Email"}
                                     </h4>
-                                    <a href="mailto:info@souriahouria.com">
-                                        info@souriahouria.com
+                                    <a href={`mailto:${global.email}`}>
+                                        {global.email}
                                     </a>
                                 </div>
                             </div>
@@ -101,30 +113,19 @@ export default async function ContactPage({ params }: Props) {
                                             marginTop: "var(--space-2)",
                                         }}
                                     >
-                                        <a
-                                            href="#"
-                                            style={{
-                                                color: "var(--secondary)",
-                                            }}
-                                        >
-                                            Facebook
-                                        </a>
-                                        <a
-                                            href="#"
-                                            style={{
-                                                color: "var(--secondary)",
-                                            }}
-                                        >
-                                            Twitter
-                                        </a>
-                                        <a
-                                            href="#"
-                                            style={{
-                                                color: "var(--secondary)",
-                                            }}
-                                        >
-                                            YouTube
-                                        </a>
+                                        {socials.map((key) => (
+                                            <a
+                                                key={key}
+                                                href={global[key]!}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{
+                                                    color: "var(--secondary)",
+                                                }}
+                                            >
+                                                {socialLabels[key]}
+                                            </a>
+                                        ))}
                                     </div>
                                 </div>
                             </div>

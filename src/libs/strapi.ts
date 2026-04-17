@@ -379,3 +379,34 @@ export async function searchContent(
 
     return { articles, events, pressReleases };
 }
+
+// ─── Global Settings ───────────────────────────────────────────
+
+export interface SiteGlobal {
+    email: string;
+    facebook: string | null;
+    instagram: string | null;
+    youtube: string | null;
+    x: string | null;
+}
+
+let globalCache: SiteGlobal | null = null;
+
+export async function getSiteGlobal(): Promise<SiteGlobal> {
+    if (globalCache) return globalCache;
+
+    try {
+        const res = await api.get<{ data: SiteGlobal }>("/global");
+        globalCache = res.data.data;
+        return globalCache;
+    } catch {
+        // Fallback defaults if global isn't set up yet
+        return {
+            email: "info@souriahouria.com",
+            facebook: "https://www.facebook.com/SouriaHouriaCOM",
+            instagram: "https://www.instagram.com/souria.houria",
+            youtube: "https://www.youtube.com/@SouriaHouria",
+            x: "https://x.com/SouriaHouriaFR",
+        };
+    }
+}

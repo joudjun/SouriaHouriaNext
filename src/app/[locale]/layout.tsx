@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { isValidLocale } from "@/libs/locale";
+import { getSiteGlobal } from "@/libs/strapi";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/types";
 
@@ -18,12 +19,14 @@ export default async function LocaleLayout({ children, params }: Props) {
         notFound();
     }
 
+    const global = await getSiteGlobal();
+
     return (
         <ThemeProvider initialLocale={locale as Locale}>
             <Header />
             <Nav />
             <main>{children}</main>
-            <Footer />
+            <Footer global={global} />
         </ThemeProvider>
     );
 }
