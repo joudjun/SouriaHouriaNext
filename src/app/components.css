@@ -177,6 +177,23 @@ p { margin-bottom: var(--space-6); color: var(--text-secondary); }
   border-color: var(--primary-500);
 }
 
+/* CTA nav item (Contact) */
+.nav-item-cta a {
+  background-color: var(--secondary-700);
+  color: var(--white);
+  border-color: var(--secondary-700);
+}
+.nav-item-cta a:hover {
+  background-color: var(--secondary-500);
+  border-color: var(--secondary-500);
+  color: var(--white);
+}
+.nav-item-cta.active a {
+  background-color: var(--secondary-500);
+  border-color: var(--secondary-500);
+  color: var(--white);
+}
+
 /* Mobile hamburger */
 .nav-hamburger {
   display: none;
@@ -1347,6 +1364,51 @@ p { margin-bottom: var(--space-6); color: var(--text-secondary); }
 }
 .contact-info-sidebar a:hover {
   color: var(--primary-500);
+}
+.contact-info-sidebar .contact-info-note {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+.contact-info-sidebar .contact-info-note:first-of-type {
+  margin-top: 0;
+}
+.contact-info-sidebar a + .contact-info-note {
+  margin-top: var(--space-3);
+}
+
+.contact-legal {
+  margin-top: var(--space-10);
+  padding: var(--space-6);
+  background: var(--bg-surface-alt);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+}
+.contact-legal h4 {
+  font-size: 0.875rem;
+  margin-bottom: var(--space-2);
+  text-transform: none;
+  color: var(--text-primary);
+}
+.contact-legal p {
+  margin: 0 0 var(--space-3) 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+.contact-legal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.contact-legal li {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── 404 Error Content ── */

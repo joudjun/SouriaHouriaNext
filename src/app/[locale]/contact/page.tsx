@@ -78,8 +78,32 @@ export default async function ContactPage({ params }: Props) {
                                             ? "البريد الإلكتروني"
                                             : "Email"}
                                     </h4>
-                                    <a href={`mailto:${global.email}`}>
-                                        {global.email}
+                                    <p className="contact-info-note">
+                                        {loc === "ar"
+                                            ? "لاقتراح مقال:"
+                                            : "Pour nous proposer un article :"}
+                                    </p>
+                                    <a href="mailto:redacteur@souriahouria.com">
+                                        redacteur@souriahouria.com
+                                    </a>
+                                    <p className="contact-info-note">
+                                        {loc === "ar"
+                                            ? "لاقتراح فعل أو للمساعدة:"
+                                            : "Pour suggérer une action ou nous aider :"}
+                                    </p>
+                                    <a href="mailto:info@souriahouria.com">
+                                        info@souriahouria.com
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="contact-info-item">
+                                <div className="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="24" height="24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                                <div>
+                                    <h4>
+                                        {loc === "ar" ? "الهاتف" : "Téléphone"}
+                                    </h4>
+                                    <a href="tel:+33952803687" dir="ltr">
+                                        +33 (0) 9 52 80 36 87
                                     </a>
                                 </div>
                             </div>
@@ -147,6 +171,24 @@ export default async function ContactPage({ params }: Props) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div className="contact-legal">
+                        <h4>
+                            {loc === "ar"
+                                ? "معلومات الجمعية"
+                                : "Informations légales"}
+                        </h4>
+                        <p>
+                            {loc === "ar"
+                                ? "سوريا حرية جمعية تخضع لقانون 1 يوليو 1901 ومرسوم 16 أغسطس 1901."
+                                : "Souria Houria (Syrie Liberté), association régie par la loi du 1er juillet 1901 et le décret du 16 août 1901."}
+                        </p>
+                        <ul dir="ltr">
+                            <li>RNA : W751210131</li>
+                            <li>SIMPA : 62721</li>
+                            <li>SIRET-SIREN : 534 492 806 00029</li>
+                        </ul>
                     </div>
                 </div>
             </section>

@@ -15,9 +15,17 @@ function navItems(locale: Locale) {
             label: t(locale, "pressReleases"),
         },
         { href: localePath(locale, "/events"), label: t(locale, "events") },
+        {
+            href: localePath(locale, "/galleries"),
+            label: t(locale, "galleries"),
+        },
         { href: localePath(locale, "/articles"), label: t(locale, "articles") },
         { href: localePath(locale, "/about"), label: t(locale, "about") },
-        { href: localePath(locale, "/contact"), label: t(locale, "contact") },
+        {
+            href: localePath(locale, "/contact"),
+            label: t(locale, "contact"),
+            cta: true,
+        },
     ];
 }
 
@@ -58,7 +66,13 @@ export default function Nav() {
                     {items.map((item) => (
                         <li
                             key={item.href}
-                            className={`nav-item${isActive(item.href) ? " active" : ""}`}
+                            className={[
+                                "nav-item",
+                                isActive(item.href) ? "active" : "",
+                                "cta" in item && item.cta ? "nav-item-cta" : "",
+                            ]
+                                .filter(Boolean)
+                                .join(" ")}
                         >
                             <Link href={item.href}>{item.label}</Link>
                         </li>
