@@ -25,11 +25,11 @@ export default async function ContactPage({ params }: Props) {
     const loc = locale as Locale;
     const global = await getSiteGlobal();
 
-    const socialLabels: Record<string, string> = {
-        facebook: "Facebook",
-        x: "X",
-        youtube: "YouTube",
-        instagram: "Instagram",
+    const socialIcons: Record<string, React.ReactNode> = {
+        facebook: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>,
+        x: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>,
+        youtube: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.56 31.56 0 0 0 0 12a31.56 31.56 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.56 31.56 0 0 0 24 12a31.56 31.56 0 0 0-.5-5.81zM9.75 15.02V8.98L15.5 12z"/></svg>,
+        instagram: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>,
     };
     const socials = (["facebook", "x", "youtube", "instagram"] as const).filter(
         (key) => global[key],
@@ -80,14 +80,6 @@ export default async function ContactPage({ params }: Props) {
                                     </h4>
                                     <p className="contact-info-note">
                                         {loc === "ar"
-                                            ? "لاقتراح مقال:"
-                                            : "Pour nous proposer un article :"}
-                                    </p>
-                                    <a href="mailto:redacteur@souriahouria.com">
-                                        redacteur@souriahouria.com
-                                    </a>
-                                    <p className="contact-info-note">
-                                        {loc === "ar"
                                             ? "لاقتراح فعل أو للمساعدة:"
                                             : "Pour suggérer une action ou nous aider :"}
                                     </p>
@@ -130,24 +122,16 @@ export default async function ContactPage({ params }: Props) {
                                             ? "التواصل الاجتماعي"
                                             : "Réseaux sociaux"}
                                     </h4>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            gap: "var(--space-3)",
-                                            marginTop: "var(--space-2)",
-                                        }}
-                                    >
+                                    <div className="contact-social">
                                         {socials.map((key) => (
                                             <a
                                                 key={key}
                                                 href={global[key]!}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                style={{
-                                                    color: "var(--secondary)",
-                                                }}
+                                                aria-label={key}
                                             >
-                                                {socialLabels[key]}
+                                                {socialIcons[key]}
                                             </a>
                                         ))}
                                     </div>

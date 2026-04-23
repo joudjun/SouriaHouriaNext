@@ -1365,6 +1365,27 @@ p { margin-bottom: var(--space-6); color: var(--text-secondary); }
 .contact-info-sidebar a:hover {
   color: var(--primary-500);
 }
+.contact-social {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+.contact-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+.contact-social a:hover {
+  background: var(--primary-500);
+  border-color: var(--primary-500);
+  color: var(--white);
+}
 .contact-info-sidebar .contact-info-note {
   font-size: 0.8125rem;
   color: var(--text-secondary);
